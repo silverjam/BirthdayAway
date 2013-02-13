@@ -3,36 +3,41 @@
 from shutil import *
 from os import *
 
-Z = "../crx_gallery_pkg"
-ZF = Z + ".zip"
+SCRIPT_DIR = path.dirname(path.realpath(__file__))
 
-pkg = "pkg"
+ZIP_NAME_NOEXT = path.join(SCRIPT_DIR, "../crx_gallery_pkg")
+ZIP_FULL_NAME = ZIP_NAME_NOEXT + ".zip"
 
-def cp(file, target):
-	print 'Copying:', file
-	copyfile(file, path.join(target, file))
+PKG_DIR = path.join(SCRIPT_DIR, "../pkg")
 
-if path.exists(pkg):
-	print 'Removing:', pkg
-	rmtree(pkg)
+def cp(filename_in, target):
+	print 'Copying:', filename_in
+	target_fullpath = path.join(target, filename_in)
+	dirpath, filename = path.split(target_fullpath)
+	if not path.exists(dirpath):
+		makedirs(dirpath)
+	copyfile(filename_in, target_fullpath)
 
-mkdir(pkg)
+if path.exists(PKG_DIR):
+	print 'Removing:', path.split(PKG_DIR)[1]
+	rmtree(PKG_DIR)
 
-cp("manifest.json", pkg)
+mkdir(PKG_DIR)
+chdir(path.join(SCRIPT_DIR, ".."))
 
-cp("nobirthday.js", pkg)
+cp("manifest.json", PKG_DIR)
+cp("js/nobirthday.js", PKG_DIR)
+cp("assets/icon-16.png", PKG_DIR)
+cp("assets/icon-48.png", PKG_DIR)
+cp("assets/icon-64.png", PKG_DIR)
+cp("assets/icon-128.png", PKG_DIR)
+cp("assets/icon-256.png", PKG_DIR)
 
-cp("icon-16.png", pkg)
-cp("icon-48.png", pkg)
-cp("icon-64.png", pkg)
-cp("icon-128.png", pkg)
-cp("icon-256.png", pkg)
+chdir(PKG_DIR)
 
-chdir(pkg)
+if path.exists(ZIP_FULL_NAME):
+	print 'Removing: ', path.split(ZIP_FULL_NAME)[1]
+	unlink(ZIP_FULL_NAME)
 
-if path.exists(ZF):
-	print 'Removing: ', ZF
-	unlink(ZF)
-
-print 'Zipping:', Z
-make_archive(Z, "zip")
+print 'Zipping:', path.split(ZIP_NAME_NOEXT)[1]
+make_archive(ZIP_NAME_NOEXT, "zip")

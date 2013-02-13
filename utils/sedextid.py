@@ -2,7 +2,9 @@
 import os
 import sys
 
-for root, dirs, files in os.walk('.'):
+SCRIPT_DIR = path.dirname(path.realpath(__file__))
+
+for root, dirs, files in os.walk(path.join(SCRIPT_DIR, '..')):
 
 	if root != '.':
 		continue
