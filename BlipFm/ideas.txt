@@ -1,1 +1,0 @@
-+ Add text of song description to the "message" box.
