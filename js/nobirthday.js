@@ -1,12 +1,16 @@
-// oneup.js
+// File: nobirthday.js
 
 var g_count = 100;
-var g_element_id = "ntf";
+
+var g_parent_el_id = "ntf";
+var g_element_id = "ntf-bd";
 
 function nobirthday()
 {
-	var el = document.getElementById(g_element_id);
-	if ( el != null )
+	var bd = document.getElementById(g_element_id);
+	var el = document.getElementById(g_parent_el_id);
+
+	if ( bd != null && el != null )
 	{
 		el.hidden = true;
 

@@ -14,7 +14,7 @@
 	, "default_title" : "Birthday Away for Google+"
 }
 
-, "background": { "scripts": [ "background.js" ] }
+, "background": { "scripts": [ "js/background.js" ] }
 
 , "icons" : 
 	{ 
